@@ -62,7 +62,7 @@ extension CGFloat {
             bigger = first
         }
         
-        return smaller < self && self < bigger
+        return smaller <= self && self <= bigger
     }
     
     func reached(_ value: CGFloat, positive: Bool) -> Bool{
@@ -83,5 +83,57 @@ extension SKTileMapNode {
         let center = centerOfTile(atColumn: column, row: row)
         
         return center
+    }
+    
+    func edgeOfTileFrom(_ point: CGPoint) -> CGPoint {
+        let column = tileColumnIndex(fromPosition: point)
+        let row = tileRowIndex(fromPosition: point)
+        let center = centerOfTile(atColumn: column, row: row)
+        
+        var edge = CGPoint()
+        edge.x = point.x > center.x ? center.x + self.tileSize.width/2 : center.x - self.tileSize.width/2
+        edge.y = point.y > center.y ? center.y + self.tileSize.height/2 : center.y - self.tileSize.height/2
+        
+        return edge
+    }
+    
+    func isEdgeOfTile(_ point: CGPoint) -> Bool {
+        let column = tileColumnIndex(fromPosition: point)
+        let row = tileRowIndex(fromPosition: point)
+        let center = centerOfTile(atColumn: column, row: row)
+        
+        if (point.x == center.x + tileSize.width/2) ||
+            (point.x == center.x - tileSize.width/2) ||
+            (point.y == center.y + tileSize.height/2) ||
+            (point.y == center.y - tileSize.height/2) {
+                return true
+        }
+        
+        return false
+    }
+    
+    //MARK: Map edges
+    var leftTop: CGPoint {
+        let x = (mapSize.width / 2) - tileSize.width
+        let y = (mapSize.height / 2) - tileSize.height
+        return CGPoint(x: -x, y: y)
+    }
+    
+    var rightTop: CGPoint {
+        let x = (mapSize.width / 2) - tileSize.width
+        let y = (mapSize.height / 2) - tileSize.height
+        return CGPoint(x: x, y: y)
+    }
+    
+    var leftBottom: CGPoint {
+        let x = (mapSize.width / 2) - tileSize.width
+        let y = (mapSize.height / 2) - tileSize.height
+        return CGPoint(x: -x, y: -y)
+    }
+    
+    var rightBottom: CGPoint {
+        let x = (mapSize.width / 2) - tileSize.width
+        let y = (mapSize.height / 2) - tileSize.height
+        return CGPoint(x: x, y: -y)
     }
 }

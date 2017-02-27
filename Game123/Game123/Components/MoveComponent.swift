@@ -91,7 +91,7 @@ class MoveComponent: GKComponent {
         
         if let spriteNode = entity?.component(ofType: SpriteComponent.self)?.node {
             let position = spriteNode.position
-            let tileCenter = entityManager.map.centerOfTileFrom(position)
+            let tileCenter = entityManager.map.edgeOfTileFrom(position)
             spriteNode.position = tileCenter
         }
         
@@ -125,7 +125,7 @@ class MoveComponent: GKComponent {
         
         let intersect = intersectCutLine(x: x, y: y)
         
-        if (tile != nil) || (intersect == true){
+        if ((tile != nil) && !entityManager.map.isEdgeOfTile(position)) || (intersect == true){
             return false
         }
         else if tile == nil {
@@ -158,8 +158,8 @@ class MoveComponent: GKComponent {
         // to create offset between cut lines
         let tileSize = entityManager.map.tileSize
         
-        let playerOffsetX = tileSize.width + spriteNode.size.width / 2
-        let playerOffsetY = tileSize.height + spriteNode.size.height / 2
+        let playerOffsetX = tileSize.width //+ spriteNode.size.width / 2
+        let playerOffsetY = tileSize.height //+ spriteNode.size.height / 2
         
         var stopX = x
         var stopY = y
@@ -200,40 +200,20 @@ class MoveComponent: GKComponent {
                 let second = cut.routePoints[i].cgPointValue
                 
                 if(first.x == second.x && y.inRange(first.y, second.y)
+                    && playerVelocity.dx != 0
                     && stopX.reached(first.x, positive: direction == .right)
-                    && sameDirectionX(offset: x, real: currentPosition.x)) {
+                    && currentPosition.x.reached(first.x, positive: direction == .left)){
                     intersect = true
                 }
                 else if(first.y == second.y && x.inRange(first.x, second.x)
+                    && playerVelocity.dy != 0
                     && stopY.reached(first.y, positive: direction == .up)
-                    && sameDirectionY(offset: y, real: currentPosition.y)) {
+                    && currentPosition.y.reached(first.y, positive: direction == .down)) {
                     intersect = true
                 }
             }
         }
         
         return intersect
-    }
-    
-    func sameDirectionX(offset: CGFloat, real: CGFloat) -> Bool {
-        if (offset > real) && playerVelocity.dx > 0 {
-            return true
-        }
-        if (offset < real) && playerVelocity.dx < 0 {
-            return true
-        }
-        
-        return false
-    }
-    
-    func sameDirectionY(offset: CGFloat, real: CGFloat) -> Bool {
-        if (offset > real) && playerVelocity.dy > 0 {
-            return true
-        }
-        if (offset < real) && playerVelocity.dy < 0 {
-            return true
-        }
-        
-        return false
     }
 }

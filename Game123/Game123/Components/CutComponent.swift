@@ -82,13 +82,13 @@ class CutComponent: GKComponent {
                 
                 var point = previousPosition.point
                 
-                // place point at center of the tile
-                point = self.entityManager.map.centerOfTileFrom(point)
+                // place point on tile's edge
+                point = self.entityManager.map.edgeOfTileFrom(point)
                 
                 // if it is the first point
                 // add intersecting point as start (edge)
                 if !lineIsDrawing{
-                    point = edgePosition(direction: direction, position: point)
+                    point = edgePosition(direction: direction, position: previousPosition.point)
                 }
                 
                 // add route point if player changes direction
@@ -109,14 +109,17 @@ class CutComponent: GKComponent {
             return false
         }
         
-        let upLeft = CGPoint(x: spriteNode.position.x - spriteNode.size.width/2,
-                             y: spriteNode.position.y + spriteNode.size.height/2)
-        let upRight = CGPoint(x: spriteNode.position.x + spriteNode.size.width/2,
-                              y: spriteNode.position.y + spriteNode.size.height/2)
-        let downLeft = CGPoint(x: spriteNode.position.x - spriteNode.size.width/2,
-                               y: spriteNode.position.y - spriteNode.size.height/2)
-        let downRight = CGPoint(x: spriteNode.position.x + spriteNode.size.width/2,
-                             y: spriteNode.position.y - spriteNode.size.height/2)
+        let delta = spriteNode.size.width/2
+        //let delta : CGFloat = 2.0
+        
+        let upLeft = CGPoint(x: spriteNode.position.x - delta,
+                             y: spriteNode.position.y + delta)
+        let upRight = CGPoint(x: spriteNode.position.x + delta,
+                              y: spriteNode.position.y + delta)
+        let downLeft = CGPoint(x: spriteNode.position.x - delta,
+                               y: spriteNode.position.y - delta)
+        let downRight = CGPoint(x: spriteNode.position.x + delta,
+                             y: spriteNode.position.y - delta)
         
         if onTile(position: upLeft) || onTile(position: upRight) ||
             onTile(position: downLeft) || onTile(position: downRight){
@@ -213,11 +216,63 @@ class CutComponent: GKComponent {
     //TODO: implement cut logic
     func cutArea(){
         
-        for point in routePoints {
-            let position = point.cgPointValue
-        }
+//        if routePoints.count < 2 {
+//            return
+//        }
         
+//        if routePoints.count == 2 {
+//            let p1 = routePoints[0].cgPointValue
+//            let p2 = routePoints[1].cgPointValue
+//            
+//            let col1 = entityManager.map.tileColumnIndex(fromPosition: p1)
+//            let row1 = entityManager.map.tileRowIndex(fromPosition: p1)
+//            
+//            if p1.x == p2.x {
+//                if p1.x > 0 {
+//                    for row in 0..<entityManager.map.numberOfRows {
+//                        for col in col1..<entityManager.map.numberOfColumns {
+//                            setGreenTile(column: col, row: row)
+//                        }
+//                    }
+//                }
+//                else {
+//                    for row in 0..<entityManager.map.numberOfRows {
+//                        for col in 0..<col1 {
+//                            setGreenTile(column: col, row: row)
+//                        }
+//                    }
+//                }
+//            }
+//            else if p1.y == p2.y {
+//                if p1.y > 0 {
+//                    for col in 0..<entityManager.map.numberOfColumns {
+//                        for i in row1..<entityManager.map.numberOfRows {
+//                            setGreenTile(column: col, row: i)
+//                        }
+//                    }
+//                }
+//                else {
+//                    for col in 0..<entityManager.map.numberOfColumns {
+//                        for i in 0..<row1 {
+//                            setGreenTile(column: col, row: i)
+//                        }
+//                    }
+//                }
+//            }
+//        }
+
         routePoints.removeAll()
+    }
+    
+    func setGreenTile(column: Int, row: Int) {
+        if let tile = entityManager.map.tileSet.tileGroups.first(
+            where: {$0.name == "green"}) {
+            
+            entityManager.map.setTileGroup(tile, forColumn: column, row: row)
+        }
+        else {
+            print("Ooops")
+        }
     }
     
     func updateCutLine(){

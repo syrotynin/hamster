@@ -45,19 +45,14 @@ class GameScene: SKScene {
         
         let hamster = Hamster(entityManager: entityManager)
         if let spriteNode = hamster.component(ofType: SpriteComponent.self)?.node {
-            spriteNode.position = startPositionFromMap()
+            spriteNode.position = entityManager.map.leftTop
             spriteNode.size = CGSize(width: 100, height: 100)
         }
         entityManager.add(entity: hamster)
     }
     
-    func startPositionFromMap() -> CGPoint{
-        let x = (self.map.mapSize.width / 2) - self.map.tileSize.width - 1
-        let y = (self.map.mapSize.height / 2) - self.map.tileSize.height - 1
-        return CGPoint(x: -x, y: y)
-    }
-    
     func handleSwipe(recognizer: UISwipeGestureRecognizer){
         entityManager.movePlayer(direction: recognizer.direction)
     }
+
 }
