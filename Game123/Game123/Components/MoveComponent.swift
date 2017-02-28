@@ -179,7 +179,7 @@ class MoveComponent: GKComponent {
         
         if y > currentPosition.y {
             stopY = y + playerOffsetY
-            direction = .up
+            direction = .top
         }
         else if y < currentPosition.y {
             stopY = y - playerOffsetY
@@ -207,7 +207,7 @@ class MoveComponent: GKComponent {
                 }
                 else if(first.y == second.y && x.inRange(first.x, second.x)
                     && playerVelocity.dy != 0
-                    && stopY.reached(first.y, positive: direction == .up)
+                    && stopY.reached(first.y, positive: direction == .top)
                     && currentPosition.y.reached(first.y, positive: direction == .down)) {
                     intersect = true
                 }

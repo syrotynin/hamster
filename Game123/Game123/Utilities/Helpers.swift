@@ -32,19 +32,19 @@ enum MoveDirection {
     case none
     case right
     case left
-    case up
+    case top
     case down
     
-    static func opposite(direction: MoveDirection) -> MoveDirection{
-        switch direction {
+    var opposite: MoveDirection {
+        switch self {
         case .left:
             return .right
         case .right:
             return .left
-        case .up:
+        case .top:
             return .down
         case .down:
-            return .up
+            return .top
         default:
             return .none
         }

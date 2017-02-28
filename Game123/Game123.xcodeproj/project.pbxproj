@@ -22,6 +22,7 @@
 		E83CC0211DE4BF0900BA49CA /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83CC0201DE4BF0900BA49CA /* SpriteComponent.swift */; };
 		E83CC0241DE4CC4400BA49CA /* Hamster.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83CC0231DE4CC4400BA49CA /* Hamster.swift */; };
 		E83CC0261DE4CDE300BA49CA /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83CC0251DE4CDE300BA49CA /* EntityManager.swift */; };
+		E84FC5001E65984400C2D310 /* DivisionAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84FC4FF1E65984400C2D310 /* DivisionAlgorithm.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		E83CC0201DE4BF0900BA49CA /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
 		E83CC0231DE4CC4400BA49CA /* Hamster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hamster.swift; sourceTree = "<group>"; };
 		E83CC0251DE4CDE300BA49CA /* EntityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityManager.swift; sourceTree = "<group>"; };
+		E84FC4FF1E65984400C2D310 /* DivisionAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DivisionAlgorithm.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				E80D6A711DE74F1F00EDA3D1 /* Helpers.swift */,
+				E84FC4FF1E65984400C2D310 /* DivisionAlgorithm.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 			files = (
 				E8231D411DE5E396004E75C6 /* MoveComponent.swift in Sources */,
 				E83CC0241DE4CC4400BA49CA /* Hamster.swift in Sources */,
+				E84FC5001E65984400C2D310 /* DivisionAlgorithm.swift in Sources */,
 				E83CC00E1DE4BE9A00BA49CA /* GameScene.swift in Sources */,
 				E83CC0261DE4CDE300BA49CA /* EntityManager.swift in Sources */,
 				E80D6A721DE74F1F00EDA3D1 /* Helpers.swift in Sources */,

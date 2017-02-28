@@ -72,7 +72,7 @@ class CutComponent: GKComponent {
                 direction = MoveDirection.left
             }
             if(currentPosition.y > previousPosition.point.y){
-                direction = MoveDirection.up
+                direction = MoveDirection.top
             }
             if(currentPosition.y < previousPosition.point.y){
                 direction = MoveDirection.down
@@ -93,7 +93,7 @@ class CutComponent: GKComponent {
                 
                 // add route point if player changes direction
                 // if direction is opposite to current - don't need to set point
-                if direction != MoveDirection.opposite(direction: routeDirection) || lineIsDrawing == false{
+                if direction != routeDirection.opposite || lineIsDrawing == false{
                     routePoints.append(NSValue(cgPoint: point))
                 }
                 
@@ -162,7 +162,7 @@ class CutComponent: GKComponent {
             point.x -= spriteNode.size.width/2
         case .left:
             point.x += spriteNode.size.width/2
-        case .up:
+        case .top:
             point.y -= spriteNode.size.height/2
         case .down:
             point.y += spriteNode.size.height/2
@@ -200,7 +200,7 @@ class CutComponent: GKComponent {
             // intersection with borders
             
             // invert route direction to get edge point
-            let invertedDirection = MoveDirection.opposite(direction: routeDirection)
+            let invertedDirection = routeDirection.opposite
             
             let point = edgePosition(direction: invertedDirection, position: currentPosition())
             routePoints.append(NSValue(cgPoint: point))
